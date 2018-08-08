@@ -5,7 +5,9 @@
  */
 package tictactoegame;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -15,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 
 /**
  *
@@ -25,7 +28,7 @@ public class TicTacToeBoard extends VBox {
     private Line line2;                 
     private Line line3;
     private Line line4;
-    private HBox hbox;
+    private HBox hbox;                  //Hbox used to set a horizontal layout of the two buttons
     private BorderPane border;          //BorderPane used to organize tic tac toe board
     private char turn;                  //Turn is used to determine whose turn it is to draw on the board
     private TicTacToePane tic;          //Tic is a Tic Tac Toe square that will be used to set up a 3x3 GridPane
@@ -36,7 +39,11 @@ public class TicTacToeBoard extends VBox {
     private Button exit;                //Button to leave game
     private Button newGame;             //Buton to start new Tic Tac Toe game
     
-    
+    /**
+     * Constructor designed to instantiate and initialize variables and panes
+     * in class. It will also set MouseEvents and ActionEvents to
+     * TicTacToePane, the exit button, and the new game button.
+     */
     public TicTacToeBoard() {
         line1 = new Line(0, 50, 150, 50);
         line2 = new Line(0, 100, 150, 100);
@@ -52,10 +59,34 @@ public class TicTacToeBoard extends VBox {
             {'b', 'b', 'b'}
         };
         count = 0;
-        
         winner = new Label("");
+        
+        //Action Event to exit the game
         exit = new Button("Exit");
+        exit.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                System.exit(-1);
+            }
+            
+        });
+        
+        //Action Event to restart the game with a blank tic tac toe board
+        //using a new tictactoeboard, a new scene, and a new stage.
         newGame = new Button("New Game");
+        newGame.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                TicTacToeBoard board = new TicTacToeBoard();
+                Scene scene = new Scene(board, 300, 300);
+                Stage primaryStage = new Stage();
+                
+                primaryStage.setTitle("Tic Tac Toe");
+                primaryStage.setScene(scene);
+                primaryStage.show();
+            }
+        
+        });
         
         // Nested for loop used to create tic tac toe panes as well as set 
         // mouse events for when they are clicked on to draw X's and O's
@@ -111,6 +142,7 @@ public class TicTacToeBoard extends VBox {
                 grid.add(tic, j, i);
             }
         }
+        //Gathering all nodes and panes
         border.setPrefSize(150, 150);
         border.getChildren().addAll(grid, line1, line2, line3, line4, hbox);
         
@@ -119,6 +151,11 @@ public class TicTacToeBoard extends VBox {
         this.getChildren().addAll(border, winner, hbox);
     }
     
+    /**
+     * This method is designed to determine if X has achieved a win either by 
+     * 3 in a row, 3 in a column, or 3 in a diagonal. This method will also
+     * determine if the game has reached a draw.
+     */
     public void checkXWin() {
         for(int i = 0; i < 3; i++) {
             if(marks[i][0] == marks[i][1] && marks[i][1] == marks[i][2] && marks[i][1] == 'x') {
@@ -147,6 +184,10 @@ public class TicTacToeBoard extends VBox {
             winner.setText("It's a Draw");
     }
     
+    /**
+     * This method is designed to determine if O has achieved a win either by 
+     * 3 in a row, 3 in a column, or 3 in a diagonal.
+     */
     public void checkOWin() {
         for(int i = 0; i < 3; i++) {
             if(marks[i][0] == marks[i][1] && marks[i][1] == marks[i][2] && marks[i][1] == 'o') {

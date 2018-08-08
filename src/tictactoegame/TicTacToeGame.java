@@ -7,14 +7,10 @@ package tictactoegame;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
- * This program is designed to allow two users to play Tic-Tac-Toe
+ * This program is designed to set up and allow two users to play Tic-Tac-Toe.
  * @author Donald Cardona
  */
 public class TicTacToeGame extends Application {
