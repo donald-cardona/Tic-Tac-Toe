@@ -20,7 +20,9 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 /**
- *
+ * This class is designed to set up the Tic Tac Toe board using TicTacToePanes
+ * as well as other nodes such as buttons and labels to help users determine the
+ * result of the game as well as start a new game and exit the game.
  * @author Donald Cardona
  */
 public class TicTacToeBoard extends VBox {
