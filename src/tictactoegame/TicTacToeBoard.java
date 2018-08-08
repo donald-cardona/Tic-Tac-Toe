@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
@@ -18,19 +20,21 @@ import javafx.scene.shape.Line;
  *
  * @author Donald Cardona
  */
-public class TicTacToeBoard extends BorderPane {
+public class TicTacToeBoard extends VBox {
     private Line line1;                 //Line objects will be used to set up the tic tac toe board
     private Line line2;                 
     private Line line3;
     private Line line4;
-    private Label winner;               //Label to declare winner or draw when result is determined
-    private Button exit;                //Button to leave game
-    private Button newGame;             //Buton to start new Tic Tac Toe game
+    private HBox hbox;
+    private BorderPane border;          //BorderPane used to organize tic tac toe board
     private char turn;                  //Turn is used to determine whose turn it is to draw on the board
     private TicTacToePane tic;          //Tic is a Tic Tac Toe square that will be used to set up a 3x3 GridPane
     private GridPane grid;              //Grid is used to hold TicTacToePanes
     private char [][] marks;            //Separate grid that hold which spots hold X's and O's
     private int count;                  //Used to declare draw when all spots are filled with no winner
+    private Label winner;               //Label to declare winner or draw when result is determined
+    private Button exit;                //Button to leave game
+    private Button newGame;             //Buton to start new Tic Tac Toe game
     
     
     public TicTacToeBoard() {
@@ -38,9 +42,8 @@ public class TicTacToeBoard extends BorderPane {
         line2 = new Line(0, 100, 150, 100);
         line3 = new Line(50, 0, 50, 150);
         line4 = new Line(100, 0, 100, 150);
-        winner = new Label("");
-        exit = new Button("Exit");
-        newGame = new Button("New Game");
+        hbox = new HBox();
+        border = new BorderPane();
         turn = 'x';
         grid = new GridPane();
         marks = new char[][] {
@@ -49,6 +52,10 @@ public class TicTacToeBoard extends BorderPane {
             {'b', 'b', 'b'}
         };
         count = 0;
+        
+        winner = new Label("");
+        exit = new Button("Exit");
+        newGame = new Button("New Game");
         
         // Nested for loop used to create tic tac toe panes as well as set 
         // mouse events for when they are clicked on to draw X's and O's
@@ -104,46 +111,65 @@ public class TicTacToeBoard extends BorderPane {
                 grid.add(tic, j, i);
             }
         }
+        border.setPrefSize(150, 150);
+        border.getChildren().addAll(grid, line1, line2, line3, line4, hbox);
         
-        this.getChildren().addAll(grid, line1, line2, line3, line4);
+        hbox.getChildren().addAll(newGame, exit);
+        
+        this.getChildren().addAll(border, winner, hbox);
     }
     
     public void checkXWin() {
         for(int i = 0; i < 3; i++) {
-            if(marks[i][0] == marks[i][1] && marks[i][1] == marks[i][2] && marks[i][1] == 'x')
-                System.out.println("X wins");
+            if(marks[i][0] == marks[i][1] && marks[i][1] == marks[i][2] && marks[i][1] == 'x') {
+                winner.setText("X wins");
+                border.setDisable(true);
+            }
         }
         
         for(int j = 0; j < 3; j++) {
-            if(marks[0][j] == marks[1][j] && marks[1][j] == marks[2][j] && marks[1][j] == 'x')
-                System.out.println("X wins");
+            if(marks[0][j] == marks[1][j] && marks[1][j] == marks[2][j] && marks[1][j] == 'x') {
+                winner.setText("X wins");
+                border.setDisable(true);
+            }
         }
         
-        if(marks[0][0] == marks[1][1] && marks[1][1] == marks[2][2] && marks[1][1] == 'x' )
-            System.out.println("X wins");
+        if(marks[0][0] == marks[1][1] && marks[1][1] == marks[2][2] && marks[1][1] == 'x' ) {
+            winner.setText("X wins");
+            border.setDisable(true);
+        }
         
-        else if(marks[2][0] == marks[1][1] && marks[1][1] == marks[0][2] && marks[1][1] == 'x')
-            System.out.println("X wins");
-        
+        else if(marks[2][0] == marks[1][1] && marks[1][1] == marks[0][2] && marks[1][1] == 'x') {
+            winner.setText("X wins");
+            border.setDisable(true);
+        }
         else if(count == 8)
-            System.out.println("Draw");
+            winner.setText("It's a Draw");
     }
     
     public void checkOWin() {
         for(int i = 0; i < 3; i++) {
-            if(marks[i][0] == marks[i][1] && marks[i][1] == marks[i][2] && marks[i][1] == 'o')
-                System.out.println("O wins");
+            if(marks[i][0] == marks[i][1] && marks[i][1] == marks[i][2] && marks[i][1] == 'o') {
+                winner.setText("O wins");
+                border.setDisable(true);
+            }
         }
         
         for(int j = 0; j < 3; j++) {
-            if(marks[0][j] == marks[1][j] && marks[1][j] == marks[2][j] && marks[1][j] == 'o')
-                System.out.println("O wins");
+            if(marks[0][j] == marks[1][j] && marks[1][j] == marks[2][j] && marks[1][j] == 'o') {
+                winner.setText("O wins");
+                border.setDisable(true);
+            }
         }
         
-        if(marks[0][0] == marks[1][1] && marks[1][1] == marks[2][2] && marks[1][1] == 'o')
-            System.out.println("O wins");
+        if(marks[0][0] == marks[1][1] && marks[1][1] == marks[2][2] && marks[1][1] == 'o') {
+            winner.setText("O wins");
+            border.setDisable(true);
+        }
         
-        else if(marks[2][0] == marks[1][1] && marks[1][1] == marks[0][2] && marks[1][1] == 'o' )
-            System.out.println("O wins");
+        else if(marks[2][0] == marks[1][1] && marks[1][1] == marks[0][2] && marks[1][1] == 'o' ) {
+            winner.setText("O wins");
+            border.setDisable(true);
+        }
     }
 }
