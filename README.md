@@ -8,5 +8,14 @@ that display nodes such as buttons and labels. Below is a screenshot of a start 
 
 The next screenshot depicts the game again but with X as the declared winner. The same outcome happens when O wins except the message will
 instead say "O wins".
-### X wins Tic-Tac-Toe Game                                                                  O wins Tic-Tac-Toe Game
-![image](https://user-images.githubusercontent.com/40302096/43850670-88b6b39a-9b06-11e8-945b-8527002fc199.png)      ![image](https://user-images.githubusercontent.com/40302096/43851002-82eb7b70-9b07-11e8-97d9-1452b8c46d7d.png)
+### X wins Tic-Tac-Toe Game
+![image](https://user-images.githubusercontent.com/40302096/43850670-88b6b39a-9b06-11e8-945b-8527002fc199.png)      
+
+### O wins Tic-Tac-Toe Game
+![image](https://user-images.githubusercontent.com/40302096/43851002-82eb7b70-9b07-11e8-97d9-1452b8c46d7d.png)
+
+
+If no winner is declared when all the squares are filled with X's and O's the game will determine the result as a draw.
+
+### Draw Tic-Tac-Toe Game
+
