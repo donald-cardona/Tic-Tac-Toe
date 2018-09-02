@@ -159,10 +159,12 @@ public class TicTacToeBoard extends VBox {
      * determine if the game has reached a draw.
      */
     public void checkXWin() {
+        boolean win = false;
         for(int i = 0; i < 3; i++) {
             if(marks[i][0] == marks[i][1] && marks[i][1] == marks[i][2] && marks[i][1] == 'x') {
                 winner.setText("X wins");
                 border.setDisable(true);
+                win = true;
             }
         }
         
@@ -170,19 +172,22 @@ public class TicTacToeBoard extends VBox {
             if(marks[0][j] == marks[1][j] && marks[1][j] == marks[2][j] && marks[1][j] == 'x') {
                 winner.setText("X wins");
                 border.setDisable(true);
+                win = true;
             }
         }
         
         if(marks[0][0] == marks[1][1] && marks[1][1] == marks[2][2] && marks[1][1] == 'x' ) {
             winner.setText("X wins");
             border.setDisable(true);
+            win = true;
         }
         
         else if(marks[2][0] == marks[1][1] && marks[1][1] == marks[0][2] && marks[1][1] == 'x') {
             winner.setText("X wins");
             border.setDisable(true);
+            win = true;
         }
-        else if(count == 8)
+        else if(count == 8 && win == false)
             winner.setText("It's a Draw");
     }
     
